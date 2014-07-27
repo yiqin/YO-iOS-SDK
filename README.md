@@ -9,10 +9,7 @@ http://yoapi.justyo.co/
 
 How to Start
 ======
-1. Add AFNetworking
-http://afnetworking.com/
-
-2. Drag YO folder into your project in Xcode
+Drag YO folder into your project in Xcode. Include #import "YO.h"
 
 
 How to Use

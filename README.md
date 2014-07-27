@@ -3,6 +3,10 @@ YO iOS SDK
 
 A simple YO SDK for iOS
 
+API Sign Up
+======
+http://yoapi.justyo.co/
+
 
 How to Use
 ======

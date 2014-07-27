@@ -22,11 +22,15 @@
 }
 
 - (IBAction)sendYOAction:(id)sender {
+    [YO sendYOToIndividualUser:@"YIQIN1"];
+    
     // Send A Yo To All Subscribers
     [YO sendYO];
     
+    // [NSThread sleepForTimeInterval:2.0f];
+    
     // Yo Individual Usernames
-    [YO sendYOToIndividualUser:@"YO"];
+    // [YO sendYOToIndividualUser:@"YIQIN1"];
 }
 
 - (void)didReceiveMemoryWarning

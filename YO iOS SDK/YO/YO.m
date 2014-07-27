@@ -10,62 +10,57 @@
 #import "AFNetworking.h"
 
 static NSString *YOKey;
+static NSString *defaultUsername;
 
 @implementation YO
 
 + (void)startWithAPIKey:(NSString *)APIKey
 {
     YOKey = APIKey;
+    defaultUsername = @"YO";
 }
 
 + (void)sendYO
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO SDK"
-                                                    message:@"SUCCESS: Send A Yo To All Subscribers"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    
     NSString *path = @"http://api.justyo.co/yoall/";
     NSDictionary *parameters = @{@"api_token": YOKey};
     
-	AFHTTPRequestOperationManager *operationManager1 = [AFHTTPRequestOperationManager manager];
-	operationManager1.requestSerializer = [AFJSONRequestSerializer serializer];
-    operationManager1.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [operationManager1 POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"SUCCESS: Send A Yo To All Subscribers");
-        [alert show];
+	AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    [operationManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"SUCCESS: Send a Yo to all subscribers");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"FAILED");
+		NSLog(@"FAILED: All Subscribers");
+        [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendYO) userInfo:nil repeats:NO];
+        
     }];
 }
 
-+ (void)sendYOToIndividualUser:(NSString *)username
++ (void)sendYOToIndividualUser:(NSString *)username_
 {
-    NSString *temp = [NSString stringWithFormat: @"SUCCESS: Send A Yo to %@", username];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO SDK"
-                                                    message:temp
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
+    NSString *username = [[NSString alloc] init];
+    if (!username_) {
+        username = username_;
+        defaultUsername = username_;
+    }
+    else {
+        username = defaultUsername;
+    }
     
     NSString *path = @"http://api.justyo.co/yoall/";
     NSDictionary *parameters = @{@"api_token": YOKey,
                                  @"username": username};
     
-	AFHTTPRequestOperationManager *operationManager1 = [AFHTTPRequestOperationManager manager];
-	operationManager1.requestSerializer = [AFJSONRequestSerializer serializer];
-    operationManager1.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [operationManager1 POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"SUCCESS: Send A Yo to %@", username);
-         [alert show];
+	AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    [operationManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"SUCCESS: Send a Yo to %@", username);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"FAILED");
+		NSLog(@"FAILED: Individual users");
+        [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendYOToIndividualUser:) userInfo:nil repeats:NO];
+        
     }];
 }
+
 
 @end

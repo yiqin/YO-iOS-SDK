@@ -4,9 +4,9 @@ YO iOS SDK
 A simple YO SDK for iOS
 
 
-Usage
+How to Use
 ======
-In AppDelegate, includes the following code in didFinishLaunchingWithOptions:
+In AppDelegate, include the following code in didFinishLaunchingWithOptions:
 
     // Put your APIKey
     NSString *APIKey = @"20af1dd2-93af-869f-446c-0675f8694095";

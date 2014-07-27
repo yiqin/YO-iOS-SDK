@@ -27,6 +27,8 @@ In your code:
     [YO sendYO];
     
     // Yo Individual Usernames
-    [YO sendYOToIndividualUser:@"THE USERNAME YOU WANT TO SEND"];
-
+    [YO sendYOToIndividualUser:@"YIQIN1"];
+    
+    // Count Total Subscribers
+    [YO countTotalSubscribers];
 

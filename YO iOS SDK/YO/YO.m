@@ -39,7 +39,7 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
         if (statusCode == 201) {
             NSLog(@"SUCCESS: Send A Yo to all subscribers.");
         }
@@ -84,7 +84,7 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
         if (statusCode == 201) {
             NSLog(@"SUCCESS: Send A Yo to %@", username);
         }
@@ -117,7 +117,7 @@ static NSString *YOKey;
     [request setHTTPMethod:@"GET"];
     
     NSURLSessionDataTask *getDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode] ;
         if (statusCode == 200) {
             NSError* errorJSON;
             NSDictionary* responseJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&errorJSON];

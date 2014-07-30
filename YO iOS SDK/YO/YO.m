@@ -39,14 +39,14 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
         if (statusCode == 201) {
             NSLog(@"SUCCESS: Send A Yo to all subscribers.");
         }
         else {
             NSLog(@"FAIL");
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendYO) userInfo:nil repeats:NO];
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain) userInfo:nil repeats:NO];
             });
         }
     }];
@@ -54,18 +54,10 @@ static NSString *YOKey;
     [postDataTask resume];
 }
 
-+ (void)sendYOToIndividualUser:(id)username_
++ (void)sendYOToIndividualUser:(NSString *)username
 {
     NSString *API_KEY = YOKey;
     NSURL *url = [NSURL URLWithString:@"http://api.justyo.co/yo/"];
-    
-    NSString *username = [[NSString alloc] init];
-    if ([username_ isKindOfClass:[NSString class]]) {
-        username = username_;
-    }
-    else {
-        username = [[username_ userInfo] objectForKey:@"username"];
-    }
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -84,7 +76,7 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
         if (statusCode == 201) {
             NSLog(@"SUCCESS: Send A Yo to %@", username);
         }
@@ -92,7 +84,7 @@ static NSString *YOKey;
             NSLog(@"FAIL");
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 NSDictionary *userInfo = @{@"username": username};
-                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendYOToIndividualUser:) userInfo:userInfo repeats:NO];
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain:) userInfo:userInfo repeats:NO];
             });
         }
     }];
@@ -117,7 +109,7 @@ static NSString *YOKey;
     [request setHTTPMethod:@"GET"];
     
     NSURLSessionDataTask *getDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = [(NSHTTPURLResponse*) response statusCode];
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode] ;
         if (statusCode == 200) {
             NSError* errorJSON;
             NSDictionary* responseJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&errorJSON];
@@ -126,7 +118,7 @@ static NSString *YOKey;
         else {
             NSLog(@"FAIL");
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendYO) userInfo:nil repeats:NO];
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryGetAgain) userInfo:nil repeats:NO];
             });
         }
     }];
@@ -134,7 +126,21 @@ static NSString *YOKey;
     [getDataTask resume];
 }
 
+# pragma mark - Try Method
++ (void) tryPostAgain
+{
+    [YO sendYO];
+}
 
++ (void) tryPostAgain:(NSTimer *)timer
+{
+    NSString *username = [[timer userInfo] objectForKey:@"username"];
+    [YO sendYOToIndividualUser:username];
+}
 
++ (void)tryGetAgain
+{
+    [YO countTotalSubscribers];
+}
 
 @end

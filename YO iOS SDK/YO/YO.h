@@ -12,7 +12,7 @@
 + (void) startWithAPIKey: (NSString *) APIKey;
 
 + (void) sendYO;
-+ (void) sendYOToIndividualUser: (id) username;
++ (void) sendYOToIndividualUser: (NSString *) username;
 + (void) countTotalSubscribers;
 
 @end

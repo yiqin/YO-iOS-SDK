@@ -14,6 +14,8 @@ Drag YO folder into your project in Xcode. Include #import "YO.h"
 
 How to Use
 ======
+The following example will send a YO to YIQIN2.
+
 In AppDelegate, include the following code in didFinishLaunchingWithOptions:
 
     // Put your APIKey

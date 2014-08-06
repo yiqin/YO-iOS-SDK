@@ -44,7 +44,7 @@ static NSString *YOKey;
             NSLog(@"SUCCESS: Send A Yo to all subscribers.");
         }
         else {
-            NSLog(@"FAIL");
+            NSLog(@"FAIL: sendYO");
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain) userInfo:nil repeats:NO];
             });
@@ -81,7 +81,7 @@ static NSString *YOKey;
             NSLog(@"SUCCESS: Send A Yo to %@", username);
         }
         else {
-            NSLog(@"FAIL");
+            NSLog(@"FAIL: sendYOToIndividualUser");
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 NSDictionary *userInfo = @{@"username": username};
                 [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain:) userInfo:userInfo repeats:NO];

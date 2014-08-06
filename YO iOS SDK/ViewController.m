@@ -29,7 +29,7 @@
     [YO sendYO];
     
     // Yo Individual Usernames
-    if (self.enterUsername.text) {
+    if ([self.enterUsername.text length] > 0) {
         [YO sendYOToIndividualUser:self.enterUsername.text];
     }
     else {

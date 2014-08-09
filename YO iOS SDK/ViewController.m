@@ -10,7 +10,6 @@
 #import "YO.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) IBOutlet UITextField *enterUsername;
 
 @end
 
@@ -20,7 +19,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self.enterUsername becomeFirstResponder];
 }
 
 - (IBAction)sendYOAction:(id)sender
@@ -29,12 +27,7 @@
     [YO sendYO];
     
     // Yo Individual Usernames
-    if ([self.enterUsername.text length] > 0) {
-        [YO sendYOToIndividualUser:self.enterUsername.text];
-    }
-    else {
-        [YO sendYOToIndividualUser:@"YIQIN1"];
-    }
+    [YO sendYOToIndividualUser:@"YIQIN1"];
     
     // Count Total Subscribers
     [YO countTotalSubscribers];

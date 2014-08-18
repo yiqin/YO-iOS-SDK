@@ -7,7 +7,7 @@
 //
 
 #import "YO.h"
-#import "AFNetworking.h"
+#import "dispatch/dispatch.h"
 
 static NSString *YOKey;
 
@@ -20,52 +20,127 @@ static NSString *YOKey;
 
 + (void)sendYO
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO SDK"
-                                                    message:@"SUCCESS: Send A Yo To All Subscribers"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
+    NSString *API_KEY = YOKey;
+    NSURL *url = [NSURL URLWithString:@"http://api.justyo.co/yoall/"];
     
-    NSString *path = @"http://api.justyo.co/yoall/";
-    NSDictionary *parameters = @{@"api_token": YOKey};
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
-	AFHTTPRequestOperationManager *operationManager1 = [AFHTTPRequestOperationManager manager];
-	operationManager1.requestSerializer = [AFJSONRequestSerializer serializer];
-    operationManager1.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
     
-    [operationManager1 POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"SUCCESS: Send A Yo To All Subscribers");
-        [alert show];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"FAILED");
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSDictionary *mapData = @{@"api_token": API_KEY};
+    NSError *error = [[NSError alloc] init];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
+    [request setHTTPBody:postData];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
+        if (statusCode == 200) {
+            NSLog(@"SUCCESS: Send A Yo to all subscribers.");
+        }
+        else {
+            NSLog(@"FAIL: sendYO");
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain) userInfo:nil repeats:NO];
+            });
+        }
     }];
+    
+    [postDataTask resume];
 }
 
 + (void)sendYOToIndividualUser:(NSString *)username
 {
-    NSString *temp = [NSString stringWithFormat: @"SUCCESS: Send A Yo to %@", username];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO SDK"
-                                                    message:temp
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
+    NSString *API_KEY = YOKey;
+    NSURL *url = [NSURL URLWithString:@"http://api.justyo.co/yo/"];
     
-    NSString *path = @"http://api.justyo.co/yoall/";
-    NSDictionary *parameters = @{@"api_token": YOKey,
-                                 @"username": username};
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
-	AFHTTPRequestOperationManager *operationManager1 = [AFHTTPRequestOperationManager manager];
-	operationManager1.requestSerializer = [AFJSONRequestSerializer serializer];
-    operationManager1.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
     
-    [operationManager1 POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"SUCCESS: Send A Yo to %@", username);
-         [alert show];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"FAILED");
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSDictionary *mapData = @{@"api_token": API_KEY,
+                              @"username" : username};
+    NSError *error = [[NSError alloc] init];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
+    [request setHTTPBody:postData];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
+        if (statusCode == 200) {
+            NSLog(@"SUCCESS: Send A Yo to %@", username);
+        }
+        else {
+            NSLog(@"FAIL: sendYOToIndividualUser");
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                NSDictionary *userInfo = @{@"username": username};
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain:) userInfo:userInfo repeats:NO];
+            });
+        }
     }];
+    
+    [postDataTask resume];
+}
+
++ (void) countTotalSubscribers
+{
+    NSString *API_KEY = YOKey;
+    NSString *tempURL = [NSString stringWithFormat:@"http://api.justyo.co/subscribers_count/?api_token=%@", API_KEY];
+    NSURL *url = [NSURL URLWithString:tempURL];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLSessionDataTask *getDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode] ;
+        if (statusCode == 200) {
+            NSError* errorJSON;
+            NSDictionary* responseJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&errorJSON];
+            NSLog(@"SUCCESS: Count total subscribers, %@", [responseJSON objectForKey:@"result"]);
+        }
+        else {
+            NSLog(@"FAIL");
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryGetAgain) userInfo:nil repeats:NO];
+            });
+        }
+    }];
+    
+    [getDataTask resume];
+}
+
+# pragma mark - Try Method
++ (void) tryPostAgain
+{
+    [YO sendYO];
+}
+
++ (void) tryPostAgain:(NSTimer *)timer
+{
+    NSString *username = [[timer userInfo] objectForKey:@"username"];
+    [YO sendYOToIndividualUser:username];
+}
+
++ (void)tryGetAgain
+{
+    [YO countTotalSubscribers];
 }
 
 @end

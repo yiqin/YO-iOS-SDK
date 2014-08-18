@@ -21,7 +21,7 @@
 		8DA6055619849F4800BE11BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA6053819849F4800BE11BB /* UIKit.framework */; };
 		8DA6055E19849F4800BE11BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DA6055C19849F4800BE11BB /* InfoPlist.strings */; };
 		8DA6056019849F4800BE11BB /* YO_iOS_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA6055F19849F4800BE11BB /* YO_iOS_SDKTests.m */; };
-		8DA6056C19849F6C00BE11BB /* YO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA6056B19849F6C00BE11BB /* YO.m */; };
+		8DD49D9919A1B7BF00BAD8AF /* YO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD49D9819A1B7BF00BAD8AF /* YO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +54,8 @@
 		8DA6055B19849F4800BE11BB /* YO iOS SDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YO iOS SDKTests-Info.plist"; sourceTree = "<group>"; };
 		8DA6055D19849F4800BE11BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8DA6055F19849F4800BE11BB /* YO_iOS_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YO_iOS_SDKTests.m; sourceTree = "<group>"; };
-		8DA6056A19849F6C00BE11BB /* YO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YO.h; sourceTree = "<group>"; };
-		8DA6056B19849F6C00BE11BB /* YO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YO.m; sourceTree = "<group>"; };
+		8DD49D9719A1B7BF00BAD8AF /* YO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YO.h; sourceTree = "<group>"; };
+		8DD49D9819A1B7BF00BAD8AF /* YO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 		8DA6053A19849F4800BE11BB /* YO iOS SDK */ = {
 			isa = PBXGroup;
 			children = (
-				8DA6056919849F6C00BE11BB /* YO */,
+				8DD49D9619A1B7BF00BAD8AF /* YO */,
 				8DA6054319849F4800BE11BB /* AppDelegate.h */,
 				8DA6054419849F4800BE11BB /* AppDelegate.m */,
 				8DA6054619849F4800BE11BB /* Main.storyboard */,
@@ -156,14 +156,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8DA6056919849F6C00BE11BB /* YO */ = {
+		8DD49D9619A1B7BF00BAD8AF /* YO */ = {
 			isa = PBXGroup;
 			children = (
-				8DA6056A19849F6C00BE11BB /* YO.h */,
-				8DA6056B19849F6C00BE11BB /* YO.m */,
+				8DD49D9719A1B7BF00BAD8AF /* YO.h */,
+				8DD49D9819A1B7BF00BAD8AF /* YO.m */,
 			);
 			path = YO;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -265,7 +265,7 @@
 				8DA6054B19849F4800BE11BB /* ViewController.m in Sources */,
 				8DA6054519849F4800BE11BB /* AppDelegate.m in Sources */,
 				8DA6054119849F4800BE11BB /* main.m in Sources */,
-				8DA6056C19849F6C00BE11BB /* YO.m in Sources */,
+				8DD49D9919A1B7BF00BAD8AF /* YO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

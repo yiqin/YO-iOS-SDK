@@ -17,14 +17,14 @@ How to Use
 The following example will send a YO from YIQIN2. If you want to recieve a YO from the example, add YIQIN2 as a friend in the app.
 
 In AppDelegate, include the following code in didFinishLaunchingWithOptions:
-
+```Objective-C
     // Put your APIKey
     NSString *APIKey = @"20af1dd2-93af-869f-446c-0675f8694095";
     [YO startWithAPIKey:APIKey];
-
+```
 
 In your code:
-
+```Objective-C
     // Send A Yo To All Subscribers
     [YO sendYO];
     
@@ -33,7 +33,7 @@ In your code:
     
     // Count Total Subscribers
     [YO countTotalSubscribers];
-
+```
 
 How to Contribute
 ======

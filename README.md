@@ -4,8 +4,7 @@ YO iOS SDK
 
 A simple YO SDK for iOS
 
-![Alt text](/YO-SDK-Demo.jpg?raw=true "Optional Title")
-
+![Alt text](/YO-SDK-Demo.png?raw=true "Optional Title")
 
 API Sign Up
 ======

@@ -31,7 +31,7 @@ In your code:
     [YO sendYO];
     
     // Yo Individual Usernames
-    [YO sendYOToIndividualUser:@"YIQIN1"];
+    [YO sendYOToIndividualUser:@"YQ123456"];
     
     // Count Total Subscribers
     [YO countTotalSubscribers];

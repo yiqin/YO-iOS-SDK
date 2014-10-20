@@ -1,7 +1,11 @@
 YO iOS SDK
 ======
 
+
 A simple YO SDK for iOS
+
+![Alt text](/YO-SDK-Demo.jpg?raw=true "Optional Title")
+
 
 API Sign Up
 ======

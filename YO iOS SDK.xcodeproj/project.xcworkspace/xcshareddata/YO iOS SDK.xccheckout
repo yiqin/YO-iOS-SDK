@@ -12,20 +12,24 @@
 	<dict>
 		<key>08E766DD-6A8D-4B27-9EEC-263B6AA72FEA</key>
 		<string>https://github.com/yiqin/YO-iOS-SDK.git</string>
+		<key>39646C55C63874F62DB12324983FDA3839C9FCE3</key>
+		<string>https://github.com/yiqin/YO-iOS-SDK.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>YO iOS SDK.xcodeproj/project.xcworkspace</string>
+	<string>YO iOS SDK.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>08E766DD-6A8D-4B27-9EEC-263B6AA72FEA</key>
+		<string>../../../YO iOS SDK</string>
+		<key>39646C55C63874F62DB12324983FDA3839C9FCE3</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/yiqin/YO-iOS-SDK.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>08E766DD-6A8D-4B27-9EEC-263B6AA72FEA</string>
+	<string>39646C55C63874F62DB12324983FDA3839C9FCE3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>08E766DD-6A8D-4B27-9EEC-263B6AA72FEA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>YO iOS SDK</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>39646C55C63874F62DB12324983FDA3839C9FCE3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YO%20iOS%20SDK</string>
 		</dict>
 	</array>
 </dict>

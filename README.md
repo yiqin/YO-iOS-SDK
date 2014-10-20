@@ -14,7 +14,9 @@ Drag YO folder into your project in Xcode. Include #import "YO.h"
 
 How to Use
 ======
-The following example will send a YO from YIQIN2. If you want to recieve a YO from the example, add YIQIN2 as a friend in the app.
+The following example will send a YO from **YIQIN2**. 
+
+**If you want to recieve a YO from the example, add YIQIN2 as a friend in the app.**
 
 In AppDelegate, include the following code in didFinishLaunchingWithOptions:
 ```Objective-C
@@ -29,7 +31,7 @@ In your code:
     [YO sendYO];
     
     // Yo Individual Usernames
-    [YO sendYOToIndividualUser:@"YIQIN1"];
+    [YO sendYOToIndividualUser:@"YQ123456"];
     
     // Count Total Subscribers
     [YO countTotalSubscribers];

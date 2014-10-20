@@ -10,6 +10,7 @@
 #import "YO.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) IBOutlet UITextField *receiver;
 
 @end
 
@@ -23,11 +24,14 @@
 
 - (IBAction)sendYOAction:(id)sender
 {
-    // Send A Yo To All Subscribers
-    // [YO sendYO];
+    if (self.receiver.text) {
+        // Yo Individual Usernames
+        [YO sendYOToIndividualUser:self.receiver.text];
+    }
     
-    // Yo Individual Usernames
-    [YO sendYOToIndividualUser:@"YQ123456"];
+    /*****************************/
+    // Send A Yo To All Subscribers (We don't send Yo to all here.)
+    // [YO sendYO];
     
     // Count Total Subscribers
     [YO countTotalSubscribers];

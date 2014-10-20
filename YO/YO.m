@@ -39,8 +39,7 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
-        if (statusCode == 200) {
+        if (!error) {
             NSLog(@"SUCCESS: Send A Yo to all subscribers.");
         }
         else {
@@ -76,8 +75,7 @@ static NSString *YOKey;
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        int statusCode = (int)[(NSHTTPURLResponse*) response statusCode];
-        if (statusCode == 200) {
+        if (!error) {
             NSLog(@"SUCCESS: Send A Yo to %@", username);
         }
         else {

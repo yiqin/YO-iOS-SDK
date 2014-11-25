@@ -90,6 +90,45 @@ static NSString *YOKey;
     [postDataTask resume];
 }
 
++ (void)sendYOToIndividualUser:(NSString *)username withLocation:(NSString *)location
+{
+    NSString *API_KEY = YOKey;
+    NSURL *url = [NSURL URLWithString:@"http://api.justyo.co/yo/"];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSDictionary *mapData = @{@"api_token": API_KEY,
+                              @"username" : username,
+                              @"location" : location};
+    NSError *error = [[NSError alloc] init];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
+    [request setHTTPBody:postData];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            NSLog(@"SUCCESS: Send A Yo to %@", username);
+        }
+        else {
+            NSLog(@"FAIL: sendYOToIndividualUser");
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                NSDictionary *userInfo = @{@"username": username};
+                [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(tryPostAgain:) userInfo:userInfo repeats:NO];
+            });
+        }
+    }];
+    
+    [postDataTask resume];
+}
+
+
 + (void) countTotalSubscribers
 {
     NSString *API_KEY = YOKey;

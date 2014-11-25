@@ -13,6 +13,7 @@
 
 + (void) sendYO;
 + (void) sendYOToIndividualUser: (NSString *) username;
++ (void) sendYOToIndividualUser: (NSString *) username withLocation: (NSString *) location;
 + (void) countTotalSubscribers;
 
 @end

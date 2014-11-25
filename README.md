@@ -36,6 +36,9 @@ In your code:
     // Yo Individual Usernames
     [YO sendYOToIndividualUser:@"YQ123456"];
     
+    // Yo Individual Usernames with Location
+    [YO sendYOToIndividualUser:@"YQ123456" withLocation: @"1, 1"];
+
     // Count Total Subscribers
     [YO countTotalSubscribers];
 ```

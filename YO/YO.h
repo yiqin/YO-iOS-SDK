@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 yiqin. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 
 @interface YO : NSObject
 

@@ -29,6 +29,7 @@ In AppDelegate, include the following code in didFinishLaunchingWithOptions:
 ```
 
 In your code:
+(Objective-C)
 ```Objective-C
     // Send A Yo To All Subscribers
     [YO sendYO];
@@ -41,6 +42,11 @@ In your code:
 
     // Count Total Subscribers
     [YO countTotalSubscribers];
+```
+(Swift)
+```Swift
+    // Yo Individual Usernames
+    YO.sendYOToIndividualUser("YQ123456")
 ```
 
 How to Contribute
